@@ -6,6 +6,9 @@ authors = ["John Dough <jdough@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = "^0.75.2"
+requests = "^2.27.1"
+uvicorn = "^0.17.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
