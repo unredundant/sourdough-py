@@ -13,7 +13,7 @@ _build
 # Installer logs
 pip-log.txt
 
-# Unit test / coverage reports
+# Unit __tests__ / coverage reports
 .coverage
 .tox
 .pytest_cache
