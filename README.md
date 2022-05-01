@@ -12,7 +12,7 @@ application
   provide seamless version management.
 - [Poetry](https://python-poetry.org/). Python dependency manager
 - [Changie](https://changie.dev/). (Optional) Automated CHANGELOG management
-- [Just](https://github.com/casey/just).  (Optional) Just a command runner
+- [Just](https://github.com/casey/just).  (Optional, but _highly_ recommended) Just a command runner
 - [Docker](https://www.docker.com/). Used to provision local infrastructure
 
 ## Local Development
@@ -23,8 +23,7 @@ Once you have installed the pre-requisites, you are ready to start running the a
 Go ahead and run
 
 ```shell
-poetry install
-poetry run pre-commit install
+just setup
 ```
 
 The first command will install all dependencies, while the second will install the pre-configured git hooks to ensure
@@ -32,7 +31,7 @@ that your code is linted and formatted prior to pushing.
 
 ### Running the API
 
-Assuming that you installed `Just`, you can then run
+To run the API, (just) run
 
 ```shell
 just run
