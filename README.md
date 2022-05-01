@@ -14,10 +14,12 @@ application
 - [Changie](https://changie.dev/). (Optional) Automated CHANGELOG management
 - [Just](https://github.com/casey/just).  (Optional, but _highly_ recommended) Just a command runner
 - [Docker](https://www.docker.com/). Used to provision local infrastructure
+- [Act](https://github.com/nektos/act) (Optional) Allows you to run GitHub Actions locally to debug pipeline issues
 
 ## Local Development
 
 ### Set up
+
 Once you have installed the pre-requisites, you are ready to start running the app locally.
 
 Go ahead and run
@@ -42,7 +44,7 @@ autoconfigured API documentation
 
 ### Running tests
 
-Tests are managed via pytest, and are set up to be run via 
+Tests are managed via pytest, and are set up to be run via
 
 ```shell
 just test
@@ -50,7 +52,7 @@ just test
 
 ### Misc
 
-For additional available commands, run 
+For additional available commands, run
 
 ```shell
 just --list
