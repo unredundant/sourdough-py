@@ -4,9 +4,9 @@ from slitherway.commands import migrate
 from slitherway.models import FlywayCommandArgs
 from sqlmodel import Session, create_engine
 
-from src.persistence.model.Author import Author
-from src.persistence.model.Book import Book
+from src.persistence.models import Author, Book
 
+# TODO Delete this before merging!
 if __name__ == "__main__":
     migration_args = FlywayCommandArgs(
         url="jdbc:postgresql://localhost:5432/test_db",

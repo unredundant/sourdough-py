@@ -5,7 +5,7 @@ from slitherway.models import FlywayCommandArgs
 from sqlmodel import Session, create_engine, select
 from testcontainers.postgres import PostgresContainer
 
-from src.persistence.model.models import Author
+from src.persistence.models import Author
 
 
 def test_can_insert_author():
