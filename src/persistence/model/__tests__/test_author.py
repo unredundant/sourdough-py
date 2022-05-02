@@ -5,7 +5,7 @@ from slitherway.models import FlywayCommandArgs
 from sqlmodel import Session, create_engine, select
 from testcontainers.postgres import PostgresContainer
 
-from src.persistence.model.Author import Author
+from src.persistence.model.models import Author
 
 
 def test_can_insert_author():
@@ -36,4 +36,6 @@ def test_can_insert_author():
             # Assert
             statement = select(Author)
             results = session.exec(statement)
-            assert results.first().name == author.name
+            author_result = results.first()
+            assert author_result.name == author.name
+            # assert author_result.books == []
