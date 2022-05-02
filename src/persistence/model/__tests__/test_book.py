@@ -6,9 +6,10 @@ from sqlmodel import Session, create_engine, select
 from testcontainers.postgres import PostgresContainer
 
 from src.persistence.model.Author import Author
+from src.persistence.model.Book import Book
 
 
-def test_can_insert_author():
+def test_can_insert_book():
     with PostgresContainer("postgres:14") as pg:
         # Arrange
         args = FlywayCommandArgs(
@@ -28,12 +29,24 @@ def test_can_insert_author():
         )
 
         with Session(engine) as session:
-            # Act
             author = Author(id=uuid4(), name="Brando Sando")
             session.add(author)
             session.commit()
 
+            # Act
+            book = Book(
+                id=uuid4(),
+                author_id=author.id,
+                isbn="1234-56-789",
+                title="The Final Empire",
+                price=13.37,
+            )
+            session.add(book)
+            session.commit()
+
             # Assert
-            statement = select(Author)
+            statement = select(Book)
             results = session.exec(statement)
-            assert results.first().name == author.name
+            retrieved_book = results.first()
+            assert retrieved_book.title == book.title
+            # assert retrieved_book.author.name == author.name

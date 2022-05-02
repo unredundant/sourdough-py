@@ -5,6 +5,7 @@ from slitherway.models import FlywayCommandArgs
 from sqlmodel import Session, create_engine
 
 from src.persistence.model.Author import Author
+from src.persistence.model.Book import Book
 
 if __name__ == "__main__":
     migration_args = FlywayCommandArgs(
@@ -20,4 +21,15 @@ if __name__ == "__main__":
     session = Session(engine)
     author = Author(id=uuid4(), name="Ryan Brink")
     session.add(author)
+    session.commit()
+
+    book = Book(
+        id=uuid4(),
+        author_id=author.id,
+        isbn="1234-56-789",
+        title="The Final Empire",
+        price=13.37,
+    )
+
+    session.add(book)
     session.commit()
