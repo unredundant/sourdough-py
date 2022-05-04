@@ -19,4 +19,4 @@ class Book(SQLModel, table=True):
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
 
-    author_id: UUID = Field(foreign_key="author.id", nullable=False)
+    author_id: UUID = Field(foreign_key="author.id")

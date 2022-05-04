@@ -30,7 +30,6 @@ def test_can_insert_book():
         with Session(engine) as session:
             # Act
             author = Author(id=uuid4(), name="Brando Sando")
-            session.add(author)
 
             book = Book(
                 id=uuid4(),
@@ -39,8 +38,9 @@ def test_can_insert_book():
                 title="The Final Empire",
                 price=13.37,
             )
-            session.add(book)
 
+            session.add(author)
+            session.add(book)
             session.commit()
 
             # Assert
@@ -49,3 +49,53 @@ def test_can_insert_book():
             retrieved_book = results.first()
             assert retrieved_book.title == book.title
             # assert retrieved_book.author.name == author.name
+
+
+def test_can_query_books_by_author():
+    with PostgresContainer("postgres:14") as pg:
+        # Arrange
+        args = FlywayCommandArgs(
+            user=pg.POSTGRES_USER,
+            password=pg.POSTGRES_PASSWORD,
+            locations=["migrations"],
+            url=f"jdbc:postgresql://localhost:{pg.get_exposed_port(5432)}/{pg.POSTGRES_DB}",
+        )
+
+        migrate(args)
+        engine = create_engine(
+            f"postgresql://"
+            f"{pg.POSTGRES_USER}:{pg.POSTGRES_PASSWORD}"
+            f"@localhost:{pg.get_exposed_port(5432)}"
+            f"/{pg.POSTGRES_DB}",
+            echo=True,
+        )
+
+        with Session(engine) as session:
+            # Act
+            author = Author(id=uuid4(), name="Brando Sando")
+
+            book_a = Book(
+                id=uuid4(),
+                author_id=author.id,
+                isbn="1234-56-789",
+                title="The Final Empire",
+                price=13.37,
+            )
+
+            book_b = Book(
+                id=uuid4(),
+                author_id=author.id,
+                isbn="1234-56-987",
+                title="The Lost Metal",
+                price=13.37,
+            )
+
+            session.add(author)
+            session.add(book_a)
+            session.add(book_b)
+            session.commit()
+
+            # Assert
+            statement = select(Author, Book).where(Book.author_id == Author.id)
+            (a, _) = session.exec(statement).first()
+            assert a.name == author.name
