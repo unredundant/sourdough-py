@@ -13,6 +13,8 @@ sqlmodel = "^0.0.6"
 psycopg2 = "^2.9.3"
 fastapi-crudrouter = "^0.8.5"
 slitherway = "^0.1.2"
+# See https://github.com/tiangolo/sqlmodel/issues/327
+sqlalchemy = "1.4.35"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

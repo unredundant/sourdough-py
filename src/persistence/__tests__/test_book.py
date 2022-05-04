@@ -99,3 +99,45 @@ def test_can_query_books_by_author():
             statement = select(Book).join(Author).where(Author.name == author.name)
             result = session.exec(statement).all()
             assert len(result) == 2
+
+
+def test_relationship():
+    with PostgresContainer("postgres:14") as pg:
+        # Arrange
+        args = FlywayCommandArgs(
+            user=pg.POSTGRES_USER,
+            password=pg.POSTGRES_PASSWORD,
+            locations=["migrations"],
+            url=f"jdbc:postgresql://localhost:{pg.get_exposed_port(5432)}/{pg.POSTGRES_DB}",
+        )
+
+        migrate(args)
+        engine = create_engine(
+            f"postgresql://"
+            f"{pg.POSTGRES_USER}:{pg.POSTGRES_PASSWORD}"
+            f"@localhost:{pg.get_exposed_port(5432)}"
+            f"/{pg.POSTGRES_DB}",
+            echo=True,
+        )
+
+        with Session(engine) as session:
+            # Act
+            author = Author(id=uuid4(), name="Brando Sando")
+            book = Book(
+                id=uuid4(),
+                author=author,
+                isbn="1234-56-789",
+                title="The Final Empire",
+                price=13.37,
+            )
+
+            session.add(author)
+            session.add(book)
+            session.commit()
+
+            # Assert
+            statement = select(Book)
+            results = session.exec(statement)
+            retrieved_book = results.first()
+            assert retrieved_book.title == book.title
+            assert retrieved_book.author.name == author.name

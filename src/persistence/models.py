@@ -1,7 +1,8 @@
 from datetime import datetime
+from typing import List
 from uuid import UUID
 
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class Author(SQLModel, table=True):
@@ -9,6 +10,9 @@ class Author(SQLModel, table=True):
     name: str
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
+
+    # heroes: List["Hero"] = Relationship(back_populates="team")
+    books: List["Book"] = Relationship(back_populates="author")
 
 
 class Book(SQLModel, table=True):
@@ -20,3 +24,5 @@ class Book(SQLModel, table=True):
     updated_at: datetime = datetime.now()
 
     author_id: UUID = Field(foreign_key="author.id")
+    author: Author = Relationship(back_populates="books")
+    # team: Optional[Team] = Relationship(back_populates="heroes")
