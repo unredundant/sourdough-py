@@ -96,6 +96,6 @@ def test_can_query_books_by_author():
             session.commit()
 
             # Assert
-            statement = select(Author, Book).where(Book.author_id == Author.id)
-            (a, _) = session.exec(statement).first()
-            assert a.name == author.name
+            statement = select(Book).join(Author).where(Author.name == author.name)
+            result = session.exec(statement).all()
+            assert len(result) == 2
