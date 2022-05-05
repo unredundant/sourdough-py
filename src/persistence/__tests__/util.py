@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from src.persistence.models import Author, Book
 
@@ -33,6 +33,8 @@ def insert_author_with_multiple_books(session: Session) -> Author:
 
 
 def cleanup(session: Session):
-    session.delete(Book)
-    session.delete(Author)
+    for book in session.exec(select(Book)).all():
+        session.delete(book)
+    for author in session.exec(select(Author)).all():
+        session.delete(author)
     session.commit()
