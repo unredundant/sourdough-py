@@ -20,8 +20,7 @@ def test_can_insert_author(session):
     assert author_result.books == []
 
     # After
-    session.delete(author)
-    session.commit()
+    cleanup(session)
 
 
 def test_can_query_author_books(session):
