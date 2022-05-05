@@ -11,7 +11,6 @@ class Author(SQLModel, table=True):
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
 
-    # heroes: List["Hero"] = Relationship(back_populates="team")
     books: List["Book"] = Relationship(back_populates="author")
 
 
@@ -25,4 +24,3 @@ class Book(SQLModel, table=True):
 
     author_id: UUID = Field(foreign_key="author.id")
     author: Author = Relationship(back_populates="books")
-    # team: Optional[Team] = Relationship(back_populates="heroes")
