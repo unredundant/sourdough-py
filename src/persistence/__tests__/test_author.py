@@ -17,7 +17,7 @@ def test_can_insert_author(session):
     results = session.exec(statement)
     author_result = results.first()
     assert author_result.name == author.name
-    # assert author_result.books == []
+    assert author_result.books == []
 
     # After
     session.delete(author)
