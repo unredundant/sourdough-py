@@ -19,5 +19,7 @@ jobs:
           poetry-version: 1.1.13
       - name: Install Dependencies
         run: poetry install
+      - name: Pull docker images ahead of tests
+        run: docker pull postgres:14
       - name: Run Tests
         run: just test
