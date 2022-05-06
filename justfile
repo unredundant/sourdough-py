@@ -7,8 +7,11 @@
 @launch-infra:
   docker compose up -d
 
+@cli *instructions:
+  poetry run python src/cli/main.py {{instructions}}
+
 # Runs the API
-@run: launch-infra
+@api: launch-infra
   poetry run uvicorn src.api.main:app --reload
 
 # Runs all tests
