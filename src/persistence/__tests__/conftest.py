@@ -1,13 +1,12 @@
 import pytest
 from slitherway.commands import migrate
 from slitherway.models import FlywayCommandArgs
-from sqlalchemy.engine import Engine
-from sqlmodel import create_engine
+from sqlmodel import Session, create_engine
 from testcontainers.postgres import PostgresContainer
 
 
 @pytest.fixture(scope="session", autouse=True)
-def engine() -> Engine:
+def session() -> Session:
     with PostgresContainer("postgres:14") as pg:
         engine = create_engine(
             f"postgresql://"
@@ -23,7 +22,7 @@ def engine() -> Engine:
             locations=["migrations"],
             url=f"jdbc:postgresql://localhost:{pg.get_exposed_port(5432)}/{pg.POSTGRES_DB}",
         )
-
         migrate(args)
 
-        yield engine
+        with Session(engine) as session:
+            yield session
