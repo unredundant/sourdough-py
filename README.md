@@ -47,7 +47,7 @@ autoconfigured API documentation
 To run the CLI
 
 ```shell
-just cli -h
+just cli --help
 ```
 
 ### Running tests
