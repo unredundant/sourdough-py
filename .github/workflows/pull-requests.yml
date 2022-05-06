@@ -2,7 +2,7 @@ name: PR Checks
 on: pull_request
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -17,6 +17,8 @@ jobs:
         uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: 1.1.13
+      - name: Install Flyway
+        run: sudo snap install flyway
       - name: Install Dependencies
         run: poetry install
       - name: Run Tests

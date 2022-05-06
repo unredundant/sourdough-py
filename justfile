@@ -3,8 +3,12 @@
   poetry install
   poetry run pre-commit install
 
+# Launches the database
+@launch-infra:
+  docker compose up -d
+
 # Runs the API
-@run:
+@run: launch-infra
   poetry run uvicorn src.api.main:app --reload
 
 # Runs all tests
