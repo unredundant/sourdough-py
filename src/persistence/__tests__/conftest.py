@@ -27,9 +27,3 @@ def engine() -> Engine:
         migrate(args)
 
         yield engine
-        #
-        # with Session(engine) as session:
-        #     try:
-        #         yield session
-        #     finally:
-        #         session.close()
