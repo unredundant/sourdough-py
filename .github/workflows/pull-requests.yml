@@ -6,8 +6,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: pwd
-        run: pwd
+      - name: ls
+        run: ls
 #      - name: Set up python
 #        id: setup-python
 #        uses: actions/setup-python@v3
