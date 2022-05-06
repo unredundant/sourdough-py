@@ -33,14 +33,22 @@ that your code is linted and formatted prior to pushing.
 
 ### Running the API
 
-To run the API, (just) run
+To run the API
 
 ```shell
-just run
+just api
 ```
 
 This will launch your shiny new API ✨ head on over to `localhost:8080/docs` and you should be greeted with beautiful,
 autoconfigured API documentation
+
+### Running the CLI
+
+To run the CLI
+
+```shell
+just cli -h
+```
 
 ### Running tests
 
