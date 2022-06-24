@@ -14,7 +14,7 @@ psycopg2 = "^2.9.3"
 fastapi-crudrouter = "^0.8.5"
 slitherway = "^0.1.3"
 # See https://github.com/tiangolo/sqlmodel/issues/327
-sqlalchemy = "1.4.17"
+sqlalchemy = "1.4.39"
 typer = "^0.4.1"
 colorama = "^0.4.4"
 shellingham = "^1.4.0"
